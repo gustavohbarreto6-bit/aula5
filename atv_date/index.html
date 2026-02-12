@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Intervalos entre Datas 📅</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Título principal da página -->
+    <h1>📅 Calculadora de Intervalos entre Datas 📅</h1>
+
+    <!-- Rótulo do primeiro campo de data -->
+    <label for="data1">Digite a primeira data:</label>
+
+    <!-- Campo para o usuário escolher a primeira data -->
+    <input type="date" id="data1">
+
+    <br><br>
+
+    <!-- Rótulo do segundo campo de data -->
+    <label for="data2">Digite a segunda data:</label>
+
+    <!-- Campo para o usuário escolher a segunda data -->
+    <input type="date" id="data2">
+
+    <br><br>
+
+    <!-- Botão que chama a função de cálculo -->
+    <button onclick="calcularIntervalo()">Calcular Intervalo</button>
+
+    <!-- Botão que chama a função para limpar os campos -->
+    <button onclick="limparCampos()">Limpar Campos</button>
+
+    <!-- Área onde o resultado será exibido -->
+    <div id="resultado"></div>
+
+    <script>
+        // Função responsável por calcular o intervalo entre as datas
+        function calcularIntervalo() {
+
+            // Captura os valores digitados nos campos de data
+            const data1 = document.getElementById("data1").value;
+            const data2 = document.getElementById("data2").value;
+
+            // Verifica se algum dos campos está vazio
+            if (!data1 || !data2) {
+                document.getElementById("resultado").innerHTML =
+                    "<strong style='color:red;'>Por favor, preencha as duas datas antes de calcular!</strong>";
+                return; // Interrompe a execução da função
+            }
+
+            // Converte as datas (string) para objetos Date
+            const d1 = new Date(data1);
+            const d2 = new Date(data2);
+
+            // Calcula a diferença absoluta entre as datas em milissegundos
+            const diffEmMs = Math.abs(d2 - d1);
+
+            // Converte milissegundos para dias
+            const diffEmDias = Math.floor(diffEmMs / (1000 * 60 * 60 * 24));
+
+            // Converte dias para meses (aproximadamente)
+            const diffEmMeses = Math.floor(diffEmDias / 30);
+
+            // Converte meses para anos (aproximadamente)
+            const diffEmAnos = Math.floor(diffEmMeses / 12);
+
+            // Exibe o resultado na tela usando template string
+            document.getElementById("resultado").innerHTML = `
+                <h3>🕜 Resultado:</h3>
+                <p><strong>Diferença em dias:</strong> ${diffEmDias} dias</p>
+                <p><strong>Diferença em meses (aprox.):</strong> ${diffEmMeses} meses</p>
+                <p><strong>Diferença em anos (aprox.):</strong> ${diffEmAnos} anos</p>
+            `;
+        }
+
+        // Função responsável por limpar os campos e o resultado
+        function limparCampos() {
+
+            // Limpa o valor do primeiro campo de data
+            document.getElementById("data1").value = "";
+
+            // Limpa o valor do segundo campo de data
+            document.getElementById("data2").value = "";
+
+            // Remove o conteúdo exibido no resultado
+            document.getElementById("resultado").innerHTML = "";
+
+            // Coloca o cursor novamente no primeiro campo
+            document.getElementById("data1").focus();
+        }
+    </script>
+
+</body>
+</html>
